@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Power of Communication in Leadership - English Lesson</title>
+    <style>
+        :root {
+            --primary: #2c5aa0;
+            --secondary: #4caf50;
+            --accent: #ff6b35;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Leadership Header */
+        .comic-header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 60vh;
+            max-height: 500px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 10;
+            box-shadow: var(--shadow);
+            border-bottom: 4px solid var(--primary);
+        }
+        
+        /* Floating Particles Effect */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(44, 90, 160, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Story Container */
+        .story-container {
+            position: relative;
+            max-width: 800px;
+            margin: -50px auto 100px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            z-index: 5;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Typography */
+        .story-content {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+        
+        .story-content p {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .story-content p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        /* Vocabulary Words */
+        .vocab-word {
+            font-weight: bold;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--primary);
+        }
+        
+        .vocab-word:hover {
+            color: var(--accent);
+            border-bottom: 1px solid var(--accent);
+        }
+        
+        /* Vocabulary Popup */
+        .vocab-popup {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 0;
+            z-index: 100;
+            max-width: 300px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .vocab-popup.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .vocab-popup-header {
+            background: var(--primary);
+            color: white;
+            padding: 12px 15px;
+            border-radius: 12px 12px 0 0;
+            font-weight: 600;
+        }
+        
+        .vocab-popup-content {
+            padding: 15px;
+        }
+        
+        .vocab-ipa {
+            font-family: monospace;
+            font-size: 1rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+            background: rgba(44, 90, 160, 0.1);
+            padding: 5px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        
+        .vocab-definition {
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .vocab-pronunciation {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* Audio Player */
+        .audio-player {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .audio-player.playing {
+            box-shadow: 0 10px 30px rgba(44, 90, 160, 0.3);
+            transform: translateX(-50%) scale(1.02);
+        }
+        
+        .audio-player button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .audio-player button:hover {
+            background: var(--accent);
+            transform: scale(1.05);
+        }
+        
+        .progress-container {
+            flex: 1;
+            height: 6px;
+            background: rgba(44, 90, 160, 0.2);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .audio-player.playing .progress-container {
+            background: rgba(44, 90, 160, 0.3);
+        }
+        
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: width 0.1s linear;
+        }
+        
+        .time-display {
+            font-size: 0.9rem;
+            color: var(--dark);
+            margin-left: 15px;
+            min-width: 80px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .audio-player.playing .time-display {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .comic-header {
+                height: 40vh;
+            }
+            
+            .story-container {
+                margin: -30px auto 80px;
+                padding: 30px 20px;
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .story-content {
+                font-size: 1rem;
+            }
+            
+            .audio-player {
+                width: 95%;
+                padding: 12px 15px;
+            }
+            
+            .audio-player button {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .vocab-popup {
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="comic-header"></div>
+    
+    <div class="particles" id="particles"></div>
+    
+    <div class="story-container">
+        <h1>The Power of Communication in Leadership</h1>
+        <div class="story-content">
+            <p>Have you ever met a leader who didn't just speak — but <span class="vocab-word" data-word="connected" data-ipa="/kəˈnekt/" data-definition="To form a positive relationship or understanding with someone" data-pronunciation="Stress second syllable, clear /t/ ending">connected</span>?</p>
+            
+            <p>Someone whose words made you feel seen, valued, and inspired?</p>
+            
+            <p>There's a story about a manager named Lina.</p>
+            
+            <p>When she first became a team leader, she struggled to express her ideas clearly.</p>
+            
+            <p>Her team often looked <span class="vocab-word" data-word="confused" data-ipa="/kənˈfjuzd/" data-definition="Unable to understand or think clearly" data-pronunciation="Stress second syllable, clear /d/ ending">confused</span> after meetings.</p>
+            
+            <p>They weren't <span class="vocab-word" data-word="unmotivated" data-ipa="/ʌnˈmoʊtɪˌveɪtɪd/" data-definition="Not having a strong reason or desire to do something" data-pronunciation="Stress third syllable /veɪt/, clear /ɪd/ ending">unmotivated</span> — they just didn't understand her <span class="vocab-word" data-word="message" data-ipa="/ˈmesɪdʒ/" data-definition="The main idea or information you want to communicate" data-pronunciation="Stress first syllable, soft /ɪdʒ/ ending">message</span>.</p>
+            
+            <p>One day, Lina decided to make a change.</p>
+            
+            <p>She started <span class="vocab-word" data-word="practicing" data-ipa="/ˈpræk.tɪs/" data-definition="To do something repeatedly to improve your skill" data-pronunciation="Stress first syllable, clear /tɪs/ ending">practicing</span> the way she spoke — not just what she said.</p>
+            
+            <p>She slowed down her speech.</p>
+            
+            <p>She used pauses to make her points stronger.</p>
+            
+            <p>And most importantly, she learned to listen.</p>
+            
+            <p>Weeks later, something changed.</p>
+            
+            <p>Her team began to respond with energy.</p>
+            
+            <p>Meetings turned into conversations.</p>
+            
+            <p>And soon, they <span class="vocab-word" data-word="achieved" data-ipa="/əˈtʃiːv/" data-definition="To successfully reach a goal or result" data-pronunciation="Stress second syllable, long /iː/ sound">achieved</span> goals faster than ever before.</p>
+            
+            <p>That's the power of communication in leadership.</p>
+            
+            <p>It's not about being the loudest in the room —</p>
+            
+            <p>it's about being clear, <span class="vocab-word" data-word="confident" data-ipa="/ˈkɑːn.fɪ.dənt/" data-definition="Having trust in your own abilities" data-pronunciation="Stress first syllable, soft /dənt/ ending">confident</span>, and connected.</p>
+            
+            <p>So if you ever feel nervous speaking in front of others, remember:</p>
+            
+            <p>your voice can guide, <span class="vocab-word" data-word="inspire" data-ipa="/ɪnˈspaɪər/" data-definition="To make someone feel excited or encouraged to do something" data-pronunciation="Stress second syllable, clear /aɪər/ ending">inspire</span>, and make people believe in something bigger.</p>
+            
+            <p>Start small. Speak with <span class="vocab-word" data-word="purpose" data-ipa="/ˈpɜːrpəs/" data-definition="The reason why something is done or created" data-pronunciation="Stress first syllable, clear /pəs/ ending">purpose</span>.</p>
+            
+            <p>And one day, you'll find people listening — not because they have to,</p>
+            
+            <p>but because they want to.</p>
+        </div>
+    </div>
+    
+    <div class="audio-player" id="audioPlayer">
+        <button id="playBtn">▶</button>
+        <div class="progress-container" id="progressContainer">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
+    </div>
+    
+    <div class="vocab-popup" id="vocabPopup">
+        <div class="vocab-popup-header" id="popupWord">Word</div>
+        <div class="vocab-popup-content">
+            <div class="vocab-ipa" id="popupIPA">/ipa/</div>
+            <div class="vocab-definition" id="popupDefinition">Definition</div>
+            <div class="vocab-pronunciation" id="popupPronunciation">Pronunciation note</div>
+        </div>
+    </div>
+    
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = Math.floor(window.innerWidth / 10);
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * window.innerWidth;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 10;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}px`;
+                particle.style.bottom = `-${size}px`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Scroll animation for paragraphs
+        function animateOnScroll() {
+            const paragraphs = document.querySelectorAll('.story-content p');
+            
+            paragraphs.forEach(paragraph => {
+                const paragraphPosition = paragraph.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (paragraphPosition < screenPosition) {
+                    paragraph.classList.add('visible');
+                }
+            });
+        }
+        
+        // Vocabulary popup functionality
+        function setupVocabularyPopup() {
+            const vocabWords = document.querySelectorAll('.vocab-word');
+            const popup = document.getElementById('vocabPopup');
+            const popupWord = document.getElementById('popupWord');
+            const popupIPA = document.getElementById('popupIPA');
+            const popupDefinition = document.getElementById('popupDefinition');
+            const popupPronunciation = document.getElementById('popupPronunciation');
+            
+            let activeWord = null;
+            
+            // Show popup on word click
+            vocabWords.forEach(word => {
+                word.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    
+                    // Close any existing popup
+                    if (activeWord) {
+                        activeWord.classList.remove('active');
+                    }
+                    
+                    // Set popup content
+                    popupWord.textContent = word.getAttribute('data-word');
+                    popupIPA.textContent = word.getAttribute('data-ipa');
+                    popupDefinition.textContent = word.getAttribute('data-definition');
+                    popupPronunciation.textContent = word.getAttribute('data-pronunciation');
+                    
+                    // Position popup
+                    const rect = word.getBoundingClientRect();
+                    popup.style.left = `${rect.left + window.scrollX}px`;
+                    popup.style.top = `${rect.top + window.scrollY - popup.offsetHeight - 10}px`;
+                    
+                    // Adjust if popup goes off screen
+                    const popupRect = popup.getBoundingClientRect();
+                    if (popupRect.left < 10) {
+                        popup.style.left = '10px';
+                    }
+                    if (popupRect.right > window.innerWidth - 10) {
+                        popup.style.left = `${window.innerWidth - popupRect.width - 10}px`;
+                    }
+                    
+                    // Show popup
+                    popup.classList.add('active');
+                    word.classList.add('active');
+                    activeWord = word;
+                });
+            });
+            
+            // Close popup when clicking elsewhere
+            document.addEventListener('click', () => {
+                popup.classList.remove('active');
+                if (activeWord) {
+                    activeWord.classList.remove('active');
+                    activeWord = null;
+                }
+            });
+            
+            // Prevent popup from closing when clicking on it
+            popup.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
+        
+        // Audio player functionality
+        function setupAudioPlayer() {
+            const audio = new Audio('https://raw.githubusercontent.com/Daravuth995/Mia-s-Story/refs/heads/main/Story%20About%20Mia.mp3');
+            const playBtn = document.getElementById('playBtn');
+            const progress = document.getElementById('progress');
+            const progressContainer = document.getElementById('progressContainer');
+            const timeDisplay = document.getElementById('timeDisplay');
+            const audioPlayer = document.getElementById('audioPlayer');
+            
+            let isPlaying = false;
+            
+            // Update progress bar
+            audio.addEventListener('timeupdate', () => {
+                const currentTime = audio.currentTime;
+                const duration = audio.duration;
+                const progressPercent = (currentTime / duration) * 100;
+                progress.style.width = `${progressPercent}%`;
+                
+                // Update time display
+                const currentMinutes = Math.floor(currentTime / 60);
+                const currentSeconds = Math.floor(currentTime % 60).toString().padStart(2, '0');
+                const durationMinutes = Math.floor(duration / 60);
+                const durationSeconds = Math.floor(duration % 60).toString().padStart(2, '0');
+                
+                timeDisplay.textContent = `${currentMinutes}:${currentSeconds} / ${durationMinutes}:${durationSeconds}`;
+            });
+            
+            // Click on progress bar to seek
+            progressContainer.addEventListener('click', (e) => {
+                const width = progressContainer.clientWidth;
+                const clickX = e.offsetX;
+                const duration = audio.duration;
+                
+                audio.currentTime = (clickX / width) * duration;
+            });
+            
+            // Play/pause button
+            playBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    audio.pause();
+                    playBtn.textContent = '▶';
+                    audioPlayer.classList.remove('playing');
+                } else {
+                    audio.play();
+                    playBtn.textContent = '❚❚';
+                    audioPlayer.classList.add('playing');
+                }
+                isPlaying = !isPlaying;
+            });
+            
+            // Audio ended
+            audio.addEventListener('ended', () => {
+                playBtn.textContent = '▶';
+                isPlaying = false;
+                progress.style.width = '0%';
+                audioPlayer.classList.remove('playing');
+            });
+        }
+        
+        // Initialize everything when page loads
+        window.addEventListener('load', () => {
+            createParticles();
+            setupAudioPlayer();
+            setupVocabularyPopup();
+            
+            // Initial animation check
+            animateOnScroll();
+            
+            // Animate paragraphs on scroll
+            window.addEventListener('scroll', animateOnScroll);
+        });
+        
+        // Responsive adjustments
+        window.addEventListener('resize', () => {
+            document.getElementById('particles').innerHTML = '';
+            createParticles();
+        });
+    </script>
+</body>
+</html>
